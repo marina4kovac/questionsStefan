@@ -1,0 +1,18 @@
+<form #forma='ngForm' (ngSubmit)="potvrdi() && continue()"
+  style="position: absolute; top:30%; left:50%; transform: translate(-50%, -50%)">
+  <table>
+    <tr>
+      <td>{{pitanje.tekst}}</td>
+    </tr>
+    <tr *ngFor="let p of pitanje.potpitanja; let i = index">
+      <td>{{slovo(i)}}) {{p.tekst}}</td>
+      <td> <input type="number" name="o{{i}}" [(ngModel)]="odgovori[i]" #o="ngModel" /></td>
+    </tr>
+    <tr>
+      <input type="submit" value="Odgovori" />
+    </tr>
+  </table>
+</form>
+<div style="position: absolute; right: 0; bottom: 0">
+  <input type="button" value="admin" (click)="gotoAdmin()"  class="invisible" />
+</div>
