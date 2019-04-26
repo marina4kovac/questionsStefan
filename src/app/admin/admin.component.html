@@ -30,8 +30,8 @@
                 Tekst pitanja:
             </td>
             <td>
-                <input type="text" name="tekstPitanja" #tekstPitanja='ngModel' [(ngModel)]="pitanje.tekst" required />
-                <span *ngIf="forma.submitted && tekstPitanja.errors?.required" class="greska">{{greska}}</span>
+                <textarea name="tekstPitanja" #tekstPitanja='ngModel' [(ngModel)]="pitanje.tekst" required ></textarea>
+                <span *ngIf="forma.submitted && tekstPitanja.errors?.required" class="greska"><br>{{greska}}</span>
             </td>
         </tr>
         <tr>
@@ -41,8 +41,8 @@
             <td>
                 <input type="number" name="brPitanja" [(ngModel)]="pitanje.brPitanja" #brPitanja='ngModel'
                     (change)="dodajOdgovore()" required/>
-                <span *ngIf="forma.submitted && brPitanja && brPitanja.value<=0 && !brPitanja.errors?.required">{{greskaBroj}}</span>
-                <span *ngIf="forma.submitted && brPitanja.errors?.required" class="greska">{{greska}}</span>
+                <span *ngIf="forma.submitted && brPitanja && brPitanja.value<=0 && !brPitanja.errors?.required"><br>{{greskaBroj}}</span>
+                <span *ngIf="forma.submitted && brPitanja.errors?.required" class="greska"><br>{{greska}}</span>
             </td>
         </tr>
         <tr *ngFor="let p of pitanje.potpitanja; let i = index">
@@ -52,10 +52,10 @@
             </td>
             <td>
                 <input type="text" name="t{{i}}" [(ngModel)]="p.tekst" #t="ngModel" required />
-                <span *ngIf="forma.submitted && t.errors?.required" class="greska">{{greska}}</span>
+                <span *ngIf="forma.submitted && t.errors?.required" class="greska"><br>{{greska}}</span>
                 <br>
                 <input type="number" name="o{{i}}" [(ngModel)]="p.odgovor" #o="ngModel" required />
-                <span *ngIf="forma.submitted && o.errors?.required" class="greska">{{greska}}</span>
+                <span *ngIf="forma.submitted && o.errors?.required" class="greska"><br>{{greska}}</span>
             </td>
         </tr>
         <tr>
