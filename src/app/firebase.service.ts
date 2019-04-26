@@ -1,18 +1,23 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, DocumentReference } from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { Pitanje } from './pitanje';
-import * as firebase from 'firebase/app';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class FirebaseService {
+  skloniOdgovoreno(p: Pitanje, id: string) {
+    p.odgovoreno=false;
+    this.db.collection<Question>("pitanja").doc(id).update({ "pitanje": JSON.stringify(p)}).catch(err => {});
+  }
+  obrisiPitanje(id: string) {
+    this.db.collection<Question>("pitanja").doc(id).delete().catch(err => {});
+  }
 
   constructor(public db: AngularFirestore) { }
 
   dodajPitanje(pitanje: Pitanje) {
-    this.db.collection<Counter>("broj").ref.doc("broj").update("cnt", firebase.firestore.FieldValue.increment(1));
     return this.db.collection<Question>('pitanja').add(
       { pitanje: JSON.stringify(pitanje) }
     );
@@ -22,8 +27,15 @@ export class FirebaseService {
     return this.db.collection<Question>("pitanja").valueChanges();
   }
 
-  dohvatiBroj(){
-    return this.db.collection("broj").doc<Counter>("broj").valueChanges();
+  dokumenti() {
+    return this.db.collection("pitanja").snapshotChanges();
+  }
+
+  odgovoreno(pitanje: Pitanje, id: string) {
+    var newQ = pitanje;
+    newQ.odgovoreno = true;
+    console.log(JSON.stringify(pitanje) + "\n" + id);
+    this.db.collection("pitanja").doc(id).update({ "pitanje": JSON.stringify(newQ) }).catch(err => {});
   }
 
 }

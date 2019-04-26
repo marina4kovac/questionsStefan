@@ -5,7 +5,7 @@ import { AdminComponent } from './admin/admin.component';
 
 const routes: Routes = [
  {path:'stefan', component:StefanComponent},
- {path:'admin', component:AdminComponent},
+ {path:'admin/:p', component:AdminComponent},
  {path:'', pathMatch:"full", redirectTo:"stefan"}
 ];
 

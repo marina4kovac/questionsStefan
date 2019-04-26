@@ -1,15 +1,22 @@
 <div style="position: absolute;top:0%; left: 50%; transform: translateX(-50%); text-align: center">
 <h2 >Postojeca pitanja</h2>
 
-    <table *ngFor="let q of pitanja" style="position:relative; left:50%; transform: translateX(-50%)">
+    <table *ngFor="let q of pitanja" style="width:100%; text-align: center">
         <tr>
-            <td colspan="2" (onmouseover)="detalji(q)">
-            {{q.tekst}}
+            <td colspan="2">
+            {{tekst(q)}}
             </td>
+            
         </tr>
-        <tr *ngFor="let o of q.potpitanja; let i = index">
-            <td>{{slovo(i)}}){{o.tekst}}</td>
-            <td>{{o.odgovor}}</td>
+        <tr *ngFor="let o of potpitanja(q); let i = index">
+            <td style="text-align:left">{{slovo(i)}}){{o.tekst}}</td>
+            <td style="text-align:left">{{o.odgovor}}</td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align: right">
+            <input type="button" value="Neodgovoreno" (click)="skloniOdgovoreno(q)" *ngIf="odgovoreno(q)" >
+            <input type="button" value="Obrisi" (click)="obrisiPitanje(q)">
+            </td>
         </tr>
     </table>
 
@@ -59,3 +66,4 @@
     </table>
 </form>
 </div>
+
