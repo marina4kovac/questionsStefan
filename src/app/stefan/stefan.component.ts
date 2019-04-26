@@ -36,7 +36,7 @@ export class StefanComponent implements OnInit {
     this.No = 0;
 
     this.firebaseService.dokumenti().subscribe(result=>{
-      if(!this.postavljeno){
+      if(!this.postavljeno || this.pitanja.length==0){
         this.postavljeno=true;
         this.pitIDs = result.map(ch => ch.payload.doc.id);
         this.pitanja = result.map(ch => JSON.parse((ch.payload.doc.data() as Question).pitanje));
