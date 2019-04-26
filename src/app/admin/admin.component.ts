@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Pitanje } from '../pitanje';
 import { Potpitanje } from '../potpitanje';
+import { FirebaseService } from '../firebase.service';
 
 @Component({
   selector: 'app-admin',
@@ -16,17 +17,13 @@ export class AdminComponent implements OnInit {
   greska = "Obavezno polje!";
   greskaBroj = "Nedozvoljen broj potpitanja!";
 
-  constructor() { }
+  constructor(private firebaseService:FirebaseService) { }
 
   ngOnInit() {
-    var pitanja = JSON.parse(localStorage.getItem(this.pitanjaName));
-    if (pitanja == null) {
-      this.pitanja = [];
-      localStorage.setItem(this.pitanjaName, JSON.stringify(this.pitanja));
-    }
-    else
-      this.pitanja = pitanja;
-
+    this.firebaseService.pitanja().subscribe(result =>
+      {this.pitanja = [];
+        result.forEach(p=>this.pitanja.push(JSON.parse(p.pitanje)));}
+    );
     this.pitanje = new Pitanje();
     this.pitanje.potpitanja = [];
   }
@@ -46,11 +43,9 @@ export class AdminComponent implements OnInit {
   }
 
   dodajPitanje(){
-    this.pitanja.push(this.pitanje);
-    localStorage.setItem(this.pitanjaName, JSON.stringify(this.pitanja));
+    this.firebaseService.dodajPitanje(this.pitanje);
     this.pitanje = new Pitanje();
     this.pitanje.potpitanja = [];
-    this.ngOnInit();
   }
 
 }

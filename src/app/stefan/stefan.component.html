@@ -1,12 +1,12 @@
-<form #forma='ngForm' (ngSubmit)="potvrdi() && continue()"
-  style="position: absolute; top:30%; left:50%; transform: translate(-50%, -50%)">
+<form #forma='ngForm' (ngSubmit)="continue(); forma.resetForm()"
+style="position: absolute; top:30%; left:50%; transform: translate(-50%, -50%)">
   <table>
     <tr>
       <td>{{pitanje.tekst}}</td>
     </tr>
     <tr *ngFor="let p of pitanje.potpitanja; let i = index">
-      <td>{{slovo(i)}}) {{p.tekst}}</td>
-      <td> <input type="number" name="o{{i}}" [(ngModel)]="odgovori[i]" #o="ngModel" /></td>
+      <td>{{slovo(i)}}){{p.tekst}}</td>
+      <td><input type="number" name="o{{i}}"  [(ngModel)]="odgovori[i]" #o="ngModel" [ngClass]="{'error': forma.submitted && o.invalid}" required/></td>
     </tr>
     <tr>
       <input type="submit" value="Odgovori" />

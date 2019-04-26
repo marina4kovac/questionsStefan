@@ -6,19 +6,25 @@ import { AppComponent } from './app.component';
 import { AdminComponent } from './admin/admin.component';
 import { FormsModule } from '@angular/forms';
 import { StefanComponent } from './stefan/stefan.component';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule, FirestoreSettingsToken } from 'angularfire2/firestore';
+import { environment } from '../environments/environment';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     AdminComponent,
-    StefanComponent,
+    StefanComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule
   ],
-  providers: [],
+  providers: [{ provide: FirestoreSettingsToken, useValue: {} }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
