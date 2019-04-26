@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, DocumentReference } from '@angular/fire/firestore';
 import { Pitanje } from './pitanje';
-import { firestore } from 'firebase';
-import { take, finalize, timestamp, count, first } from 'rxjs/operators';
-import { getQueryValue } from '@angular/core/src/view/query';
+import * as firebase from 'firebase/app';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +12,7 @@ export class FirebaseService {
   constructor(public db: AngularFirestore) { }
 
   dodajPitanje(pitanje: Pitanje) {
-    this.db.collection<Counter>("broj").ref.doc("broj").update("cnt", firestore.FieldValue.increment(1));
+    this.db.collection<Counter>("broj").ref.doc("broj").update("cnt", firebase.firestore.FieldValue.increment(1));
     return this.db.collection<Question>('pitanja').add(
       { pitanje: JSON.stringify(pitanje) }
     );
